@@ -3,6 +3,7 @@
 </template>
 <script>
   export default {
+    props: ['start'],
     data () {
       return {
         prevIndex: 0,
@@ -68,7 +69,13 @@
           return;
         }
 
-        this.addClass(this.sides[0], ['active']);
+        if(this.start && this.sides.length > this.start){
+          this.index = this.start;
+        }else{
+          console.warn('value prop start is greater than actual sides. using 0 instead.')
+        }
+
+        this.addClass(this.sides[this.index], ['active']);
 
         if( this.isForm ){
           this.setSidesDim();
